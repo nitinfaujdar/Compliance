@@ -11,6 +11,11 @@ class Common(models.Model):
         abstract=True
 
 
+class Compliance(Common, models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=50, null=True)
+
+
 class Product(Common, models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=50, null=True)
@@ -18,5 +23,6 @@ class Product(Common, models.Model):
 
 class Application(Common, models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    compliance = models.ForeignKey('Compliance', models.CASCADE, related_name='comp_app')
     app_name = models.CharField(max_length=50, null=True)
-    product = models.ForeignKey('Product', models.CASCADE, related_name='app_product')
+    product = models.OneToOneField('Product', models.CASCADE, related_name='app_product')
