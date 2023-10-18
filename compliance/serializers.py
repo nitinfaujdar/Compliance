@@ -20,4 +20,5 @@ class ApplicationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Application
-        fields = ['id', 'compliance', 'compliance_name', 'app_name', 'product', 'product_name', 'created_at', 'updated_at']
+        fields = ['id', 'compliance', 'compliance_name', 'app_name', 'product', 'product_name', 
+                  'created_at', 'updated_at']
