@@ -9,45 +9,6 @@ from .serializers import *
 
 # Create your views here.
 
-class ComplianceView(GenericAPIView):
-    serializer_class = ComplianceSerializer
-    pagination_class = PageNumberPagination
-
-    def post(self, request):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response({'message': "Compliance Added Successfully", 'data': serializer.data},
-                        status=status.HTTP_200_OK)
-    
-    def get(self, request):
-        queryset = Product.objects.all()
-        page = self.paginate_queryset(queryset)
-        serializer = self.get_serializer(page, many=True)
-        response = self.get_paginated_response(serializer.data)
-        return Response({'message': 'Compliance retrieved Successfully', 'data': response.data}, 
-                        status=status.HTTP_200_OK)
-
-
-class ProductView(GenericAPIView):
-    serializer_class = ProductSerializer
-    pagination_class = PageNumberPagination
-
-    def post(self, request):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response({'message': "Product Added Successfully", 'data': serializer.data},
-                        status=status.HTTP_200_OK)
-    
-    def get(self, request):
-        queryset = Product.objects.all()
-        page = self.paginate_queryset(queryset)
-        serializer = self.get_serializer(page, many=True)
-        response = self.get_paginated_response(serializer.data)
-        return Response({'message': 'Products retrieved Successfully', 'data': response.data}, 
-                        status=status.HTTP_200_OK)
-
 class ApplicationView(GenericAPIView):
     serializer_class = ApplicationSerializer
     pagination_class = PageNumberPagination
@@ -65,4 +26,24 @@ class ApplicationView(GenericAPIView):
         serializer = self.get_serializer(page, many=True)
         response = self.get_paginated_response(serializer.data)
         return Response({'message': 'Applications retrieved Successfully', 'data': response.data}, 
+                        status=status.HTTP_200_OK)
+
+
+class ComplianceView(GenericAPIView):
+    serializer_class = ComplianceSerializer
+    pagination_class = PageNumberPagination
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({'message': "Compliance Added Successfully", 'data': serializer.data},
+                        status=status.HTTP_200_OK)
+    
+    def get(self, request):
+        queryset = Compliance.objects.all()
+        page = self.paginate_queryset(queryset)
+        serializer = self.get_serializer(page, many=True)
+        response = self.get_paginated_response(serializer.data)
+        return Response({'message': 'Compliance retrieved Successfully', 'data': response.data}, 
                         status=status.HTTP_200_OK)

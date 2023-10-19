@@ -10,19 +10,10 @@ class Common(models.Model):
     class Meta:
         abstract=True
 
+class Application(Common, models.Model):
+    application_name = models.CharField(max_length=50, null=True)
+    product_name = models.CharField(max_length=50)
 
 class Compliance(Common, models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=50, null=True)
-
-
-class Product(Common, models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=50, null=True)
-
-
-class Application(Common, models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    compliance = models.ForeignKey('Compliance', models.CASCADE, related_name='comp_app')
-    app_name = models.CharField(max_length=50, null=True)
-    product = models.OneToOneField('Product', models.CASCADE, related_name='app_product')
+    compliance = models.CharField(max_length=50, null=True)
+    applications = models.CharField(max_length=1500,null=True)
