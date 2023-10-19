@@ -18,5 +18,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # Including the compliance urls here
     path('compliance/', include('compliance.urls')),
 ]

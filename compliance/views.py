@@ -13,6 +13,7 @@ class ApplicationView(GenericAPIView):
     serializer_class = ApplicationSerializer
     pagination_class = PageNumberPagination
 
+    # Post request for adding the applications and its product simultaneously
     def post(self, request):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -20,6 +21,7 @@ class ApplicationView(GenericAPIView):
         return Response({'message': "Application Added Successfully", 'data': serializer.data},
                         status=status.HTTP_200_OK)
     
+    # Get API for list of applications and its product using pagination(10 objects per page for better response time)
     def get(self, request):
         queryset = Application.objects.all()
         page = self.paginate_queryset(queryset)
@@ -34,6 +36,8 @@ class ComplianceView(GenericAPIView):
     pagination_class = PageNumberPagination
 
     def post(self, request):
+        # create for creating new compliance and applications under it
+        # get for updating the list of application for existing compliance
         try:
             obj = Compliance.objects.get_or_create(compliance=request.data.get('compliance'))
         except:
@@ -44,6 +48,8 @@ class ComplianceView(GenericAPIView):
         return Response({'message': "Compliance Added Successfully", 'data': serializer.data},
                         status=status.HTTP_200_OK)
     
+    # Get request for list of compliance and apps and its product under this category
+    # Using pagination in get request(10 objects per page for better response time)
     def get(self, request):
         queryset = Compliance.objects.all()
         page = self.paginate_queryset(queryset)

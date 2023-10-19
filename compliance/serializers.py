@@ -15,7 +15,7 @@ class ComplianceSerializer(serializers.ModelSerializer):
         model = Compliance
         fields = ['id', 'compliance', 'applications', 'apps_list', 'created_at', 'updated_at']
 
-
+    # Fetching the list of all the apps with its product using the comma separated ids in applications field 
     @classmethod
     def get_apps_list(self, obj: Compliance):
         if obj.applications is not None:
