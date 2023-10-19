@@ -34,7 +34,11 @@ class ComplianceView(GenericAPIView):
     pagination_class = PageNumberPagination
 
     def post(self, request):
-        serializer = self.get_serializer(data=request.data)
+        try:
+            obj = Compliance.objects.get_or_create(compliance=request.data.get('compliance'))
+        except:
+            raise serializers.ValidationError({'error_message': 'Invalid Input'})
+        serializer = self.get_serializer(obj, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({'message': "Compliance Added Successfully", 'data': serializer.data},
