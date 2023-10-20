@@ -1,9 +1,8 @@
 from django.db import models
-import uuid
 
 # Create your models here.
 
-# created_at an dupdated_at field for the time management purpose(Common for all models)
+# created_at and updated_at field for the time management purpose(Common for all models)
 class Common(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
